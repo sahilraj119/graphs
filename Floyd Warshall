@@ -1,0 +1,49 @@
+Floyd Warshell is a used find shortest path from each vertex to every other vertex.
+we make three n number of matrix and the last matrix represent the shortest path from one vertex to every other vertex.
+If you are having any problem then you can refer to floyd warshall video of abdul bari on youtube.
+
+In this particular question i have changed -1 to max int first and then change it again to -1 because floyd warshall works on infinite value
+of the nodes which are not present.
+
+void shortest_distance(vector<vector<int>>&matrix){
+	     
+	    int v = matrix.size();
+	    
+	     for(int i = 0; i < v; i++){
+	         
+	            for(int j = 0; j < v; j++){
+	            
+	                if(matrix[i][j] == -1)
+	                matrix[i][j] = INT_MAX;
+	             }
+	       }
+	        
+	    
+	    for(int k = 0; k < v; k++){
+	        
+	        for(int i = 0; i < v; i++){
+	            
+	            for(int j = 0; j < v; j++){
+	                
+	                if(matrix[i][k] == INT_MAX || matrix[k][j] == INT_MAX)
+	                continue;
+	                
+	                else if(matrix[i][j] > matrix[i][k] + matrix[k][j]){
+	                    matrix[i][j] = matrix[i][k] + matrix[k][j];
+	                    
+	                }
+	            }
+	        }
+	    }
+	    for(int i = 0; i < v; i++){
+	        
+	            for(int j = 0; j < v; j++){
+	                
+	                if(matrix[i][j] == INT_MAX)
+	                matrix[i][j] = -1;
+	
+  
+	                }
+	     }
+
+	}
