@@ -1,0 +1,38 @@
+743. Network Delay Time
+
+You are given a network of n nodes, labeled from 1 to n. You are also given times,
+a list of travel times as directed edges times[i] = (ui, vi, wi), where ui is the source node, vi is the target node,
+and wi is the time it takes for a signal to travel from source to target.
+We will send a signal from a given node k. Return the time it takes for all the n nodes to receive the signal. 
+If it is impossible for all the n nodes to receive the signal, return -1.
+
+This problem can be solved using Dijkstra algorithm but i have solved it using bellman ford .
+it is a typical bellman ford solution .
+CODE--->
+
+int networkDelayTime(vector<vector<int>>& times, int n, int k) {
+        int size=times.size();
+        vector<int> dis(n+1,INT_MAX);
+        dis[k]=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<size;j++){
+                int u=times[j][0];
+                int v=times[j][1];
+                int w=times[j][2];
+                if(dis[u]!=INT_MAX && dis[u]+w<dis[v]){
+                    dis[v]=dis[u]+w;
+                }
+                
+            }
+        }
+        int res=0;
+        for(int i=1;i<=n;i++){
+            res=max(res,dis[i]);
+            
+        }
+        if(res==INT_MAX)
+            return -1;
+        else
+            return res;
+        
+    }
