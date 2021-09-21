@@ -1,0 +1,54 @@
+207. Course Schedule
+
+There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. 
+You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
+
+For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+Return true if you can finish all courses. Otherwise, return false.
+
+ 
+Example 1:
+
+Input: numCourses = 2, prerequisites = [[1,0]]
+Output: true
+Explanation: There are a total of 2 courses to take. 
+To take course 1 you should have finished course 0. So it is possible.
+
+This is similar or we can say same as topological sorting .
+
+CODE--->
+
+
+    int in[10001];
+    vector<int> arr[10001];
+    vector<int> ans;
+    bool canFinish(int n, vector<vector<int>>& pre) {
+        for(int i=0;i<pre.size();i++){
+            arr[pre[i][0]].push_back(pre[i][1]);
+          
+        }
+        queue<int> q;
+       for(auto neigh : arr){
+        for(int it :neigh){
+            in[it]++;
+        }
+    }
+        for(int i=0;i<n;i++){
+            if(in[i]==0){
+               q.push(i);
+            }
+        }
+        while(!q.empty()){
+            int curr=q.front();
+            q.pop();
+            ans.push_back(curr);
+            for(int j:arr[curr]){
+                in[j]--;
+                if(in[j]==0){
+                    q.push(j);
+                }
+            }
+        }
+        if(ans.size()==n){return true;}
+        else {return false;}
+    }
